@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Voltaik Group | Ingeniería Eléctrica, Continuidad Operacional & Certificación SEC</title>
+    <!-- Tipografías Orbitron y Exo 2 con Iconos Material -->
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Paleta Luminosa y Eléctrica */
+            --verde-primario: #22c55e;
+            --verde-hover: #16a34a;
+            --verde-brillante: #4ade80;
+            --verde-glow: rgba(74, 222, 128, 0.45);
+            --azul-acento: #38bdf8;
+            
+            /* Superficies y Fondos con Profundidad */
+            --indigo-fondo: #0f1424;
+            --indigo-surface: #171f38;
+            --indigo-card: #1c2646;
+            --indigo-card-hover: #243056;
+            --indigo-borde: rgba(74, 222, 128, 0.32);
+            --borde-sutil: rgba(148, 163, 184, 0.22);
+
+            /* Textos */
+            --texto-blanco: #ffffff;
+            --texto-claro: #f8fafc;
+            --texto-gris: #cbd5e1;
+            --texto-muted: #94a3b8;
+            
+            --fuente-titulos: 'Orbitron', sans-serif;
+            --fuente-texto: 'Exo 2', sans-serif;
+            --sombra-card: 0 10px 30px rgba(0, 0, 0, 0.45);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            background-color: var(--indigo-fondo);
+            color: var(--texto-claro);
+            font-family: var(--fuente-texto);
+            min-height: 100vh;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px 12px 40px 12px;
+            position: relative;
+        }
+
+        /* Resplandores ambientales de fondo */
+        .ambient-glow-top {
+            position: absolute;
+            width: 700px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.22) 0%, rgba(56, 189, 248, 0.12) 40%, transparent 70%);
+            border-radius: 50%;
+            top: 5%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            filter: blur(65px);
+            z-index: 0;
+        }
+
+        .ambient-glow-bottom {
+            position: absolute;
+            width: 600px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(34, 197, 94, 0.1) 45%, transparent 70%);
+            border-radius: 50%;
+            bottom: 5%;
+            left: 50%;
+            transform: translate(-50%, 0);
+            pointer-events: none;
+            filter: blur(70px);
+            z-index: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* =========================================
+           1. BARRA DE NAVEGACIÓN
+           ========================================= */
+        .navbar {
+            width: 100%;
+            background: rgba(23, 31, 56, 0.88);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--indigo-borde);
+            border-radius: 14px;
+            padding: 12px 26px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(34, 197, 94, 0.12);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--texto-blanco);
+            cursor: pointer;
+        }
+
+        .nav-logo-svg {
+            width: 36px;
+            height: 36px;
+            filter: drop-shadow(0 2px 8px var(--verde-glow));
+            flex-shrink: 0;
+        }
+
+        .nav-brand-text {
+            font-family: var(--fuente-titulos);
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--texto-blanco);
+            white-space: nowrap;
+        }
+
+        .nav-brand-text span {
+            color: var(--verde-brillante);
+            font-weight: 900;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 22px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--texto-gris);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.25s ease;
+            position: relative;
+            padding: 6px 0;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--verde-brillante);
+        }
+
+        .nav-links a.active::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--verde-brillante);
+            box-shadow: 0 0 10px var(--verde-brillante);
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--verde-primario) 0%, var(--verde-hover) 100%) !important;
+            color: var(--texto-blanco) !important;
+            padding: 9px 22px !important;
+            border-radius: 8px;
+            font-weight: 700 !important;
+            box-shadow: 0 4px 16px var(--verde-glow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            white-space: nowrap;
+        }
+
+        .nav-cta.active {
+            border-color: var(--verde-brillante);
+            box-shadow: 0 0 20px rgba(74, 222, 128, 0.6);
+        }
+
+        /* =========================================
+           SISTEMA DE PESTAÑAS (SPA)
+           ========================================= */
+        .tab-content {
+            display: none;
+            width: 100%;
+            animation: fadeInTab 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeInTab {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* =========================================
+           PANEL PRINCIPAL Y ELEMENTOS COMUNES
+           ========================================= */
+        .main-card-panel {
+            width: 100%;
+            background: linear-gradient(155deg, rgba(23, 31, 56, 0.96) 0%, rgba(18, 24, 44, 0.98) 100%);
+            border: 1px solid var(--indigo-borde);
+            border-radius: 20px;
+            padding: 42px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 36px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55), 0 0 35px rgba(34, 197, 94, 0.15);
+            backdrop-filter: blur(14px);
+        }
+
+        .section-header {
+            text-align: center;
+            padding: 0 10px;
+        }
+
+        .badge-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid var(--verde-brillante);
+            color: var(--verde-brillante);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 11.5px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 12px rgba(74, 222, 128, 0.2);
+        }
+
+        .badge-tag .material-icons {
+            font-size: 16px;
+            color: var(--verde-brillante);
+        }
+
+        .section-header h1 {
+            font-family: var(--fuente-titulos);
+            font-size: 36px;
+            font-weight: 900;
+            line-height: 1.25;
+            letter-spacing: 0.5px;
+            margin-bottom: 14px;
+            color: var(--texto-blanco);
+        }
+
+        .section-header h1 span {
+            background: linear-gradient(90deg, #86efac 0%, var(--verde-brillante) 40%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 10px rgba(74, 222, 128, 0.3));
+        }
+
+        .section-header p {
+            font-size: 15.5px;
+            color: var(--texto-gris);
+            max-width: 860px;
+            margin: 0 auto;
+            line-height: 1.65;
+        }
+
+        /* HERO INICIO */
+        .hero-banner {
+            width: 100%;
+            background: linear-gradient(155deg, rgba(23, 31, 56, 0.96) 0%, rgba(18, 24, 44, 0.98) 100%);
+            border: 1px solid var(--indigo-borde);
+            border-radius: 20px;
+            padding: 46px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55), 0 0 35px rgba(34, 197, 94, 0.15);
+            backdrop-filter: blur(14px);
+        }
+
+        .logo-box {
+            margin-bottom: 22px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, rgba(74, 222, 128, 0.12) 0%, rgba(23, 31, 56, 0.5) 70%);
+            border-radius: 24px;
+            padding: 16px 26px;
+            border: 1px solid rgba(74, 222, 128, 0.25);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-box:hover {
+            transform: scale(1.02);
+            border-color: var(--verde-brillante);
+        }
+
+        .brand-svg-hero {
+            width: 220px;
+            height: auto;
+            max-height: 200px;
+            filter: drop-shadow(0 8px 22px rgba(0, 0, 0, 0.5));
+        }
+
+        .hero-title {
+            font-family: var(--fuente-titulos);
+            font-size: 38px;
+            font-weight: 900;
+            line-height: 1.25;
+            letter-spacing: 0.5px;
+            max-width: 920px;
+            margin-bottom: 16px;
+            color: var(--texto-blanco);
+        }
+
+        .hero-title span {
+            background: linear-gradient(90deg, #86efac 0%, var(--verde-brillante) 40%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 10px rgba(74, 222, 128, 0.3));
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: var(--texto-gris);
+            line-height: 1.65;
+            max-width: 780px;
+            margin-bottom: 38px;
+        }
+
+        /* TARJETAS DE ACCESO RÁPIDO (INICIO) */
+        .action-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            width: 100%;
+            max-width: 980px;
+        }
+
+        .action-card {
+            background: var(--indigo-card);
+            border: 1px solid var(--borde-sutil);
+            border-radius: 16px;
+            padding: 26px 22px;
+            color: var(--texto-blanco);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .action-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--verde-brillante), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .action-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--verde-brillante);
+            background: var(--indigo-card-hover);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 24px var(--verde-glow);
+        }
+
+        .action-card:hover::before { opacity: 1; }
+
+        .card-icon-bubble {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: rgba(34, 197, 94, 0.18);
+            border: 1px solid var(--verde-brillante);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--verde-brillante);
+            box-shadow: 0 4px 14px rgba(74, 222, 128, 0.2);
+            flex-shrink: 0;
+        }
+
+        .action-card:hover .card-icon-bubble {
+            background: var(--verde-primario);
+            color: var(--texto-blanco);
+            transform: scale(1.08);
+            box-shadow: 0 6px 18px var(--verde-glow);
+        }
+
+        .card-icon-bubble .material-icons { font-size: 30px; }
+
+        .card-title {
+            font-family: var(--fuente-titulos);
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: var(--texto-blanco);
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: var(--texto-gris);
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .card-btn-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--verde-brillante);
+            margin-top: 6px;
+        }
+
+        .action-card.featured {
+            border-color: rgba(74, 222, 128, 0.45);
+            background: linear-gradient(150deg, #1e2b4f 0%, #16203c 100%);
+        }
+
+        /* GRILLAS DE SERVICIOS Y SEC */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 24px;
+        }
+
+        .service-card {
+            background: var(--indigo-card);
+            border: 1px solid var(--borde-sutil);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--sombra-card);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            position: relative;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--verde-brillante);
+            background: var(--indigo-card-hover);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55), 0 0 24px var(--verde-glow);
+        }
+
+        .card-image-box {
+            position: relative;
+            width: 100%;
+            height: 195px;
+            overflow: hidden;
+        }
+
+        .card-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.45s ease;
+        }
+
+        .service-card:hover .card-image-box img { transform: scale(1.06); }
+
+        .card-pill {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: rgba(15, 20, 36, 0.9);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--verde-brillante);
+            color: var(--verde-brillante);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .card-content {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .card-content h3 {
+            font-family: var(--fuente-titulos);
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: var(--texto-blanco);
+            line-height: 1.35;
+        }
+
+        .card-content p {
+            font-size: 13.5px;
+            color: var(--texto-gris);
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 12px;
+            color: var(--texto-muted);
+            margin-bottom: 22px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 14px;
+            flex-wrap: wrap;
+        }
+
+        .card-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .card-meta .material-icons {
+            font-size: 16px;
+            color: var(--verde-brillante);
+        }
+
+        .card-actions-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn-card-preview {
+            background-color: transparent;
+            color: var(--texto-gris);
+            border: 1px solid var(--borde-sutil);
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.25s ease;
+            font-family: inherit;
+        }
+
+        .btn-card-preview:hover {
+            border-color: var(--verde-brillante);
+            color: var(--verde-brillante);
+            background: rgba(34, 197, 94, 0.12);
+        }
+
+        .btn-card-open {
+            flex: 1;
+            background: linear-gradient(135deg, var(--verde-primario) 0%, var(--verde-hover) 100%);
+            color: var(--texto-blanco);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px var(--verde-glow);
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-card-open:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 222, 128, 0.55);
+        }
+
+        /* STRIP NORMATIVO (SEC) */
+        .normative-strip {
+            background: rgba(28, 38, 70, 0.7);
+            border: 1px dashed var(--indigo-borde);
+            border-radius: 12px;
+            padding: 14px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 22px;
+            flex-wrap: wrap;
+            max-width: 920px;
+            margin: 0 auto;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+        }
+
+        .normative-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12.5px;
+            color: var(--texto-claro);
+            font-weight: 600;
+        }
+
+        .normative-item .material-icons { font-size: 18px; color: var(--verde-brillante); }
+
+        /* CONTACTO */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .contact-card {
+            background: var(--indigo-card);
+            border: 1px solid var(--borde-sutil);
+            border-radius: 18px;
+            padding: 36px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 26px;
+            box-shadow: var(--sombra-card);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card.featured {
+            background: linear-gradient(150deg, #1e2b4f 0%, #16203c 100%);
+            border-color: rgba(74, 222, 128, 0.45);
+        }
+
+        .card-top { display: flex; flex-direction: column; gap: 16px; }
+
+        .email-display-box {
+            background: rgba(15, 20, 36, 0.85);
+            border: 1px solid var(--borde-sutil);
+            border-radius: 12px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 6px;
+        }
+
+        .email-text {
+            font-family: var(--fuente-titulos);
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--verde-brillante);
+            word-break: break-all;
+        }
+
+        .btn-copy {
+            background: transparent;
+            border: 1px solid var(--borde-sutil);
+            color: var(--texto-gris);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 7px 12px;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+
+        .btn-copy:hover {
+            color: var(--verde-brillante);
+            border-color: var(--verde-brillante);
+        }
+
+        .btn-action-primary {
+            width: 100%;
+            background: linear-gradient(135deg, var(--verde-primario) 0%, var(--verde-hover) 100%);
+            color: var(--texto-blanco);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 15px 22px;
+            border-radius: 10px;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 16px var(--verde-glow);
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        .btn-action-secondary {
+            width: 100%;
+            background-color: transparent;
+            color: var(--texto-claro);
+            border: 1px solid var(--verde-brillante);
+            padding: 14px 22px;
+            border-radius: 10px;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        /* INFO STRIP DOMICILIO */
+        .info-strip {
+            background: var(--indigo-card);
+            border: 1px solid var(--borde-sutil);
+            border-radius: 14px;
+            padding: 24px 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .info-item .material-icons {
+            font-size: 26px;
+            color: var(--verde-brillante);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .info-content-title {
+            font-family: var(--fuente-titulos);
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--texto-blanco);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 4px;
+        }
+
+        .info-content-desc {
+            font-size: 13px;
+            color: var(--texto-gris);
+            line-height: 1.55;
+        }
+
+        /* =========================================
+           4. PIE DE PÁGINA (GLOBAL)
+           ========================================= */
+        .footer-integrated {
+            width: 100%;
+            border-top: 1px solid var(--borde-sutil);
+            padding-top: 36px;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            text-align: left;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1.2fr;
+            gap: 36px;
+            align-items: start;
+        }
+
+        .brand-col { display: flex; flex-direction: column; gap: 16px; }
+
+        .footer-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            width: fit-content;
+        }
+
+        .footer-logo-svg {
+            width: 32px;
+            height: 32px;
+            filter: drop-shadow(0 2px 6px var(--verde-glow));
+            flex-shrink: 0;
+        }
+
+        .footer-brand-text {
+            font-family: var(--fuente-titulos);
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            color: var(--texto-blanco);
+        }
+
+        .footer-brand-text span { color: var(--verde-brillante); }
+
+        .brand-description {
+            font-size: 13.5px;
+            color: var(--texto-gris);
+            line-height: 1.6;
+            max-width: 390px;
+        }
+
+        .sec-certified-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid var(--verde-brillante);
+            color: var(--verde-brillante);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            width: fit-content;
+        }
+
+        .nav-col { display: flex; flex-direction: column; gap: 14px; }
+
+        .col-title {
+            font-family: var(--fuente-titulos);
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--verde-brillante);
+            margin-bottom: 4px;
+        }
+
+        .footer-nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-nav-list li a {
+            color: var(--texto-gris);
+            font-size: 13.5px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-nav-list li a:hover {
+            color: var(--verde-brillante);
+            transform: translateX(4px);
+        }
+
+        .footer-nav-list li a .material-icons {
+            font-size: 15px;
+            color: var(--verde-brillante);
+        }
+
+        .governance-col { display: flex; flex-direction: column; gap: 14px; }
+
+        .holding-box {
+            background: var(--indigo-card);
+            border: 1px solid var(--borde-sutil);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.25);
+        }
+
+        .holding-header { display: flex; align-items: center; gap: 8px; }
+        .holding-icon { font-size: 20px; color: var(--azul-acento); }
+
+        .holding-tag {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--verde-brillante);
+        }
+
+        .holding-text {
+            font-size: 12.5px;
+            color: var(--texto-gris);
+            line-height: 1.6;
+        }
+
+        .holding-text strong { color: var(--texto-blanco); font-weight: 700; }
+
+        .holding-footer-note {
+            font-size: 11px;
+            color: var(--texto-muted);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .holding-footer-note .material-icons {
+            font-size: 15px;
+            color: var(--verde-brillante);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 12px;
+            color: var(--texto-muted);
+        }
+
+        .bottom-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .domicilio-tag { display: inline-flex; align-items: center; gap: 4px; }
+        .domicilio-tag .material-icons { font-size: 14px; color: var(--verde-brillante); }
+
+        .bottom-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            color: var(--texto-gris);
+        }
+
+        .bottom-right span.accent {
+            color: var(--verde-brillante);
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        /* MODALES */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 20, 36, 0.88);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 16px;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal-box {
+            background: var(--indigo-surface);
+            border: 1px solid var(--verde-brillante);
+            border-radius: 18px;
+            width: 100%;
+            max-width: 680px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 35px var(--verde-glow);
+            position: relative;
+            padding: 34px;
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: transparent;
+            border: none;
+            color: var(--texto-gris);
+            cursor: pointer;
+            font-size: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-tag {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--verde-brillante);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .modal-title {
+            font-family: var(--fuente-titulos);
+            font-size: 23px;
+            font-weight: 800;
+            margin-bottom: 14px;
+            color: var(--texto-blanco);
+        }
+
+        .modal-desc {
+            font-size: 14px;
+            color: var(--texto-gris);
+            line-height: 1.65;
+            margin-bottom: 18px;
+        }
+
+        .modal-highlight-box {
+            background: rgba(34, 197, 94, 0.12);
+            border-left: 3px solid var(--verde-brillante);
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #d1fae5;
+        }
+
+        .modal-scope-title {
+            font-family: var(--fuente-titulos);
+            font-size: 13.5px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--verde-brillante);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .modal-scope-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 26px;
+        }
+
+        .modal-scope-list li {
+            font-size: 13.5px;
+            color: var(--texto-gris);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.5;
+        }
+
+        .modal-scope-list .material-icons {
+            font-size: 18px;
+            color: var(--verde-brillante);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .modal-cta-box {
+            display: flex;
+            gap: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 20px;
+        }
+
+        .toast-copied {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--indigo-surface);
+            border: 1px solid var(--verde-brillante);
+            color: var(--verde-brillante);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px var(--verde-glow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.3s ease;
+            z-index: 10000;
+        }
+
+        .toast-copied.show { transform: translateX(-50%) translateY(0); }
+
+        /* =========================================
+           RESPONSIVIDAD MÓVIL
+           ========================================= */
+        @media (max-width: 900px) {
+            body { padding: 10px 8px 30px 8px; }
+            .navbar { flex-direction: column; gap: 14px; padding: 14px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 12px 16px; }
+            .hero-banner, .main-card-panel { padding: 32px 16px; }
+            .hero-title, .section-header h1 { font-size: 26px; }
+            .hero-subtitle, .section-header p { font-size: 14px; }
+            .action-cards-grid, .services-grid, .contact-grid, .info-strip, .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+            .normative-strip { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .footer-bottom { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .card-actions-row { flex-direction: column; }
+            .btn-card-preview, .btn-card-open { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow-top"></div>
+    <div class="ambient-glow-bottom"></div>
+
+    <div class="container">
+
+        <!-- ================= 1. NAVEGACIÓN ================= -->
+        <nav class="navbar">
+            <div class="nav-brand" onclick="cambiarPestana('inicio')">
+                <svg class="nav-logo-svg" viewBox="0 0 340 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="Nav-Isotipo">
+                        <polygon points="50,45 115,70 75,130 55,100" fill="#2d354d"/>
+                        <polygon points="50,45 110,70 148,195 118,200 75,130" fill="#22c55e"/>
+                        <polygon points="110,70 138,82 152,192" fill="#4ade80"/>
+                        <polygon points="152,235 122,142 158,150 146,65 186,155 158,155 178,235" fill="#38bdf8"/>
+                        <polygon points="185,235 162,152 232,55 258,68 205,208" fill="#38385a"/>
+                        <polygon points="232,55 258,68 274,125 248,118" fill="#4d5575"/>
+                        <polygon points="144,240 182,235 162,268" fill="#1b2034"/>
+                    </g>
+                </svg>
+                <div class="nav-brand-text">VOLTAIK <span>GROUP</span></div>
+            </div>
+
+            <ul class="nav-links">
+                <li><a onclick="cambiarPestana('inicio')" id="nav-inicio" class="active">Inicio</a></li>
+                <li><a onclick="cambiarPestana('servicios')" id="nav-servicios">Servicios</a></li>
+                <li><a onclick="cambiarPestana('sec')" id="nav-sec">Certificación SEC</a></li>
+                <li><a onclick="cambiarPestana('contacto')" id="nav-contacto" class="nav-cta">Contacto</a></li>
+            </ul>
+        </nav>
+
+        <!-- ================= 2. PESTAÑA: INICIO ================= -->
+        <div id="tab-inicio" class="tab-content active">
+            <section class="hero-banner">
+                <div class="logo-box">
+                    <svg class="brand-svg-hero" viewBox="0 0 340 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="rayoVerde" x1="50" y1="50" x2="160" y2="240" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#16a34a"/><stop offset="60%" stop-color="#22c55e"/><stop offset="100%" stop-color="#4ade80"/></linearGradient>
+                            <linearGradient id="rayoCentral" x1="140" y1="65" x2="185" y2="240" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#4ade80"/><stop offset="100%" stop-color="#38bdf8"/></linearGradient>
+                            <linearGradient id="brazoAzul" x1="180" y1="55" x2="270" y2="230" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#2d354d"/><stop offset="100%" stop-color="#38385a"/></linearGradient>
+                        </defs>
+                        <g id="Logo-Oficial-V">
+                            <polygon points="50,45 115,70 75,130 55,100" fill="#2d354d"/>
+                            <polygon points="50,45 110,70 148,195 118,200 75,130" fill="url(#rayoVerde)"/>
+                            <polygon points="110,70 138,82 152,192" fill="#4ade80"/>
+                            <polygon points="152,235 122,142 158,150 146,65 186,155 158,155 178,235" fill="url(#rayoCentral)"/>
+                            <polygon points="185,235 162,152 232,55 258,68 205,208" fill="url(#brazoAzul)"/>
+                            <polygon points="232,55 258,68 274,125 248,118" fill="#4d5575"/>
+                            <polygon points="144,240 182,235 162,268" fill="#1b2034"/>
+                        </g>
+                        <text x="170" y="315" text-anchor="middle" font-family="'Orbitron', sans-serif" font-weight="900" font-size="36" letter-spacing="4" fill="#FFFFFF">VOLTAIK</text>
+                        <text x="170" y="352" text-anchor="middle" font-family="'Orbitron', sans-serif" font-weight="800" font-size="22" letter-spacing="8" fill="#4ade80">GROUP</text>
+                    </svg>
+                </div>
+
+                <div class="badge-sec">
+                    <span class="material-icons">verified_user</span>
+                    Instalador Eléctrico Autorizado SEC
+                </div>
+
+                <h1 class="hero-title">Ingeniería Eléctrica, Logística y <span>Continuidad Operacional</span></h1>
+                <p class="hero-subtitle">Gestión técnica integral, tramitación de declaraciones TE ante la SEC, facility management y soluciones de infraestructura en faena para todo Chile.</p>
+
+                <div class="action-cards-grid">
+                    <div class="action-card" onclick="cambiarPestana('servicios')">
+                        <div class="card-icon-bubble"><span class="material-icons">engineering</span></div>
+                        <div>
+                            <div class="card-title">Servicios</div>
+                            <div class="card-desc">Facility management, obras civiles, montaje y logística industrial.</div>
+                        </div>
+                        <div class="card-btn-pill"><span>Explorar</span><span class="material-icons">arrow_forward</span></div>
+                    </div>
+
+                    <div class="action-card" onclick="cambiarPestana('sec')">
+                        <div class="card-icon-bubble"><span class="material-icons">bolt</span></div>
+                        <div>
+                            <div class="card-title">Certificación SEC</div>
+                            <div class="card-desc">Declaraciones TE-1, TE-2, TE-4 fotovoltaica, TE-6 y mallas de tierra.</div>
+                        </div>
+                        <div class="card-btn-pill"><span>Ver Trámites</span><span class="material-icons">arrow_forward</span></div>
+                    </div>
+
+                    <div class="action-card featured" onclick="cambiarPestana('contacto')">
+                        <div class="card-icon-bubble"><span class="material-icons">chat</span></div>
+                        <div>
+                            <div class="card-title">Contacto</div>
+                            <div class="card-desc">Solicitud de presupuestos, asesoría directa y evaluación en terreno.</div>
+                        </div>
+                        <div class="card-btn-pill"><span>Iniciar Consulta</span><span class="material-icons">arrow_forward</span></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= 3. PESTAÑA: SERVICIOS ================= -->
+        <div id="tab-servicios" class="tab-content">
+            <main class="main-card-panel">
+                <header class="section-header">
+                    <div class="badge-tag"><span class="material-icons">verified</span> Alcance Operativo & Estatutario</div>
+                    <h1>Soluciones Integrales de <span>Ingeniería y Servicios</span></h1>
+                    <p>Estructura operativa multi-disciplinaria orientada a la continuidad operacional corporativa e industrial.</p>
+                </header>
+
+                <div class="services-grid">
+                    <!-- Servicio 1 -->
+                    <div class="service-card">
+                        <div class="card-image-box"><img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=800&auto=format&fit=crop" alt="Ingeniería Eléctrica"><span class="card-pill">SEC & Energía</span></div>
+                        <div class="card-content">
+                            <div>
+                                <h3>Ingeniería Eléctrica y Certificación SEC</h3>
+                                <p>Diseño, ejecución, auditoría y certificación técnica TE-1 de instalaciones de baja, media y alta tensión.</p>
+                                <div class="card-meta"><span><span class="material-icons">bolt</span> Código SII 432100</span><span><span class="material-icons">schedule</span> Preventivo/Correctivo</span></div>
+                            </div>
+                            <div class="card-actions-row">
+                                <button class="btn-card-preview" onclick="openServiceModal('electrica')"><span class="material-icons">visibility</span><span>Detalle</span></button>
+                                <button class="btn-card-open" onclick="cambiarPestana('contacto')"><span>Cotizar</span><span class="material-icons">arrow_forward</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Servicio 2 -->
+                    <div class="service-card">
+                        <div class="card-image-box"><img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=800&auto=format&fit=crop" alt="Facility Management"><span class="card-pill">Mantenimiento</span></div>
+                        <div class="card-content">
+                            <div>
+                                <h3>Facility Services y Mantenimiento Integral</h3>
+                                <p>Gestión combinada de apoyo a instalaciones para condominios, plantas productivas, bodegas y corporaciones.</p>
+                                <div class="card-meta"><span><span class="material-icons">business</span> Código SII 811000</span><span><span class="material-icons">layers</span> Soporte Continuo</span></div>
+                            </div>
+                            <div class="card-actions-row">
+                                <button class="btn-card-preview" onclick="openServiceModal('facility')"><span class="material-icons">visibility</span><span>Detalle</span></button>
+                                <button class="btn-card-open" onclick="cambiarPestana('contacto')"><span>Cotizar</span><span class="material-icons">arrow_forward</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Servicio 3 -->
+                    <div class="service-card">
+                        <div class="card-image-box"><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=800&auto=format&fit=crop" alt="Construcción"><span class="card-pill">Infraestructura</span></div>
+                        <div class="card-content">
+                            <div>
+                                <h3>Construcción y Obras Civiles Menores</h3>
+                                <p>Ejecución de terminaciones, obras civiles, remodelaciones residenciales y comerciales, y demoliciones.</p>
+                                <div class="card-meta"><span><span class="material-icons">handyman</span> Código SII 433000</span><span><span class="material-icons">architecture</span> Faena en Terreno</span></div>
+                            </div>
+                            <div class="card-actions-row">
+                                <button class="btn-card-preview" onclick="openServiceModal('construccion')"><span class="material-icons">visibility</span><span>Detalle</span></button>
+                                <button class="btn-card-open" onclick="cambiarPestana('contacto')"><span>Cotizar</span><span class="material-icons">arrow_forward</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Servicio 4 -->
+                    <div class="service-card">
+                        <div class="card-image-box"><img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop" alt="Transporte y Maquinaria"><span class="card-pill">Transporte & Flota</span></div>
+                        <div class="card-content">
+                            <div>
+                                <h3>Logística, Transporte y Maquinaria</h3>
+                                <p>Transporte de carga terrestre nacional con soporte de Guías de Despacho electrónicas y arriendo de maquinaria.</p>
+                                <div class="card-meta"><span><span class="material-icons">local_shipping</span> Código SII 492300</span><span><span class="material-icons">precision_manufacturing</span> Flota Pesada</span></div>
+                            </div>
+                            <div class="card-actions-row">
+                                <button class="btn-card-preview" onclick="openServiceModal('logistica')"><span class="material-icons">visibility</span><span>Detalle</span></button>
+                                <button class="btn-card-open" onclick="cambiarPestana('contacto')"><span>Cotizar</span><span class="material-icons">arrow_forward</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Servicio 5 -->
+                    <div class="service-card">
+                        <div class="card-image-box"><img src="https://images.unsplash.com/photo-1530124566582-a618bc2615dc?q=80&w=800&auto=format&fit=crop" alt="Suministros y Pallets"><span class="card-pill">Comercio B2B</span></div>
+                        <div class="card-content">
+                            <div>
+                                <h3>Suministros Industriales, Maderas y Pallets</h3>
+                                <p>Distribución mayorista y minorista de maderas estructurales, embalajes, pallets normalizados y ferretería.</p>
+                                <div class="card-meta"><span><span class="material-icons">storefront</span> Código SII 466301</span><span><span class="material-icons">inventory_2</span> Despacho a Faena</span></div>
+                            </div>
+                            <div class="card-actions-row">
+                                <button class="btn-card-preview" onclick="openServiceModal('suministros')"><span class="material-icons">visibility</span><span>Detalle</span></button>
+                                <button class="btn-card-open" onclick="cambiarPestana('contacto')"><span>Cotizar</span><span class="material-icons">arrow_forward</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Servicio 6 -->
+                    <div class="service-card">
+                        <div class="card-image-box"><img src="https://images.unsplash.com/photo-1509391365360-2e959784a276?q=80&w=800&auto=format&fit=crop" alt="Energía Solar"><span class="card-pill">Sostenibilidad</span></div>
+                        <div class="card-content">
+                            <div>
+                                <h3>Energía Solar Fotovoltaica y Climatización HVAC</h3>
+                                <p>Proyectos de descarbonización, energía solar bajo Ley 20.571 (TE-4) y soluciones térmicas industriales.</p>
+                                <div class="card-meta"><span><span class="material-icons">solar_power</span> Ley Net Billing</span><span><span class="material-icons">ac_unit</span> HVAC Industrial</span></div>
+                            </div>
+                            <div class="card-actions-row">
+                                <button class="btn-card-preview" onclick="openServiceModal('renovables')"><span class="material-icons">visibility</span><span>Detalle</span></button>
+                                <button class="btn-card-open" onclick="cambiarPestana('contacto')"><span>Cotizar</span><span class="material-icons">arrow_forward</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- ================= 4. PESTAÑA: CERTIFICACIÓN SEC ================= -->
+        <div id="tab-sec" class="tab-content">
+            <main class="main-card-panel">
+                <header class="section-header">
+                    <div class="badge-tag"><span class="material-icons">verified_user</span> Superintendencia de Electricidad y Combustibles</div>
+                    <h1>Certificación y Declaraciones <span>Técnicas SEC</span></h1>
+                    <p>Gestión técnica, auditoría normativa y tramitación de declaraciones oficiales ante la SEC bajo los Pliegos RIC vigentes.</p>
+                    <div class="normative-strip">
+                        <div class="normative-item"><span class="material-icons">rule</span> Pliegos Técnicos RIC N° 01 al 19</div>
+                        <div class="normative-item"><span class="material-icons">assignment_turned_in</span> Firma Instalador Autorizado SEC</div>
+                        <div class="normative-item"><span class="material-icons">apartment</span> Habilitación para Recepción Final DOM</div>
+                    </div>
+                </header>
+
+                <div class="services-grid">
+                    <!-- SEC 1 -->
+                    <div class="service-card">
+                        <div class="card-image-box"><img src="https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=800&auto=format&fit=crop" alt="Declaración TE-1 SEC"><span class="card-pill">Trámite Clave DOM</span></div>
+                        <div class="card-content">
+                            <div>
+                                <h3>Declaración TE-1: Instalaciones Interiores</h3>
+                                <p>Inscripción formal de instalaciones eléctricas para la obtención de empalmes definitivos y recepción final municipal.</p>
+                                <div class="card-meta"><span><span class="material-icons">verified</span> TE-1 Oficial</span><span><span class="material-icons">domain</span> Aprobación DOM</span></div>
+                            </div>
+                            <div class="card-actions-row">
+                                <button class="btn-card-preview" onclick="openSecModal('te1')"><span class="material-icons">visibility</span><span>Requisitos</span></button>
+                                <button class="btn-card-open" onclick="cambiarPestana('contacto')"><span>Tramitar</span><span class="material-icons">arrow_forward</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SEC 2 -->
+                    <div class="service-card">
+                        <div class="card-image-box"><img src="https://images.unsplash.com/photo-1509391365360-2e959784a276?q=80&w=800&auto=format&fit=crop" alt="Declaración TE-4 Solar"><span class="card-pill">Generación Distribuida</span></div>
+                        <div class="card-content">
+                            <div>
+                                <h3>Declaración TE-4: Autoconsumo Fotovoltaico</h3>
+                                <p>Certificación de sistemas solares on-grid y off-grid bajo Ley 20.571 (Net Billing) para inyección a la red eléctrica.</p>
+                                <div class="card-meta"><span><span class="material-icons">solar_power</span> Ley 20.571</span><span><span class="material-icons">sync_alt</span> Conexión a Red</span></div>
+                            </div>
+                            <div class="card-actions-row">
+                                <button class="btn-card-preview" onclick="openSecModal('te4')"><span class="material-icons">visibility</span><span>Requisitos</span></button>
+                                <button class="btn-card-open" onclick="cambiarPestana('contacto')"><span>Tramitar</span><span class="material-icons">arrow_forward</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SEC 3 -->
+                    <div class="service-card">
+                        <div class="card-image-box"><img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?q=80&w=800&auto=format&fit=crop" alt="Electromovilidad TE-6"><span class="card-pill">Pliego RIC N°15</span></div>
+                        <div class="card-content">
+                            <div>
+                                <h3>Declaración TE-6: Electromovilidad</h3>
+                                <p>Inscripción de cargadores para vehículos eléctricos (EV) en edificios, condominios e industrias bajo norma RIC 15.</p>
+                                <div class="card-meta"><span><span class="material-icons">ev_station</span> Cargadores AC/DC</span><span><span class="material-icons">safety_check</span> Protecciones Tipo B</span></div>
+                            </div>
+                            <div class="card-actions-row">
+                                <button class="btn-card-preview" onclick="openSecModal('te6')"><span class="material-icons">visibility</span><span>Requisitos</span></button>
+                                <button class="btn-card-open" onclick="cambiarPestana('contacto')"><span>Tramitar</span><span class="material-icons">arrow_forward</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SEC 4 -->
+                    <div class="service-card">
+                        <div class="card-image-box"><img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=800&auto=format&fit=crop" alt="Alumbrado Público TE-2"><span class="card-pill">Vialidad y Loteos</span></div>
+                        <div class="card-content">
+                            <div>
+                                <h3>Declaración TE-2: Alumbrado Público</h3>
+                                <p>Certificación de redes de alumbrado público y vial para loteos, condominios cerrados y obras viales bajo RIC 09.</p>
+                                <div class="card-meta"><span><span class="material-icons">lightbulb</span> Alumbrado Vial</span><span><span class="material-icons">foundation</span> Redes Subterráneas</span></div>
+                            </div>
+                            <div class="card-actions-row">
+                                <button class="btn-card-preview" onclick="openSecModal('te2')"><span class="material-icons">visibility</span><span>Requisitos</span></button>
+                                <button class="btn-card-open" onclick="cambiarPestana('contacto')"><span>Tramitar</span><span class="material-icons">arrow_forward</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SEC 5 -->
+                    <div class="service-card">
+                        <div class="card-image-box"><img src="https://images.unsplash.com/photo-1581092335397-9583fe92d232?q=80&w=800&auto=format&fit=crop" alt="Medición de Mallas de Tierra"><span class="card-pill">Pliego RIC N°06</span></div>
+                        <div class="card-content">
+                            <div>
+                                <h3>Medición y Protocolo de Malla a Tierra</h3>
+                                <p>Estudios de resistividad del terreno y medición con telurómetro calibrado. Emisión de informe técnico para auditorías.</p>
+                                <div class="card-meta"><span><span class="material-icons">speed</span> Telurómetro Calibrado</span><span><span class="material-icons">shield</span> Protección Humana</span></div>
+                            </div>
+                            <div class="card-actions-row">
+                                <button class="btn-card-preview" onclick="openSecModal('malla')"><span class="material-icons">visibility</span><span>Requisitos</span></button>
+                                <button class="btn-card-open" onclick="cambiarPestana('contacto')"><span>Tramitar</span><span class="material-icons">arrow_forward</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SEC 6 -->
+                    <div class="service-card">
+                        <div class="card-image-box"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=800&auto=format&fit=crop" alt="Planos As-Built"><span class="card-pill">Ingeniería & Diagnóstico</span></div>
+                        <div class="card-content">
+                            <div>
+                                <h3>Auditoría Normativa y Planos As-Built</h3>
+                                <p>Levantamiento en terreno de instalaciones existentes, regularización de ampliaciones y actualización de planos unilineales.</p>
+                                <div class="card-meta"><span><span class="material-icons">draw</span> Planos Unilineales</span><span><span class="material-icons">history_edu</span> Regularización</span></div>
+                            </div>
+                            <div class="card-actions-row">
+                                <button class="btn-card-preview" onclick="openSecModal('auditoria')"><span class="material-icons">visibility</span><span>Requisitos</span></button>
+                                <button class="btn-card-open" onclick="cambiarPestana('contacto')"><span>Tramitar</span><span class="material-icons">arrow_forward</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- ================= 5. PESTAÑA: CONTACTO ================= -->
+        <div id="tab-contacto" class="tab-content">
+            <main class="main-card-panel">
+                <header class="section-header">
+                    <div class="badge-tag"><span class="material-icons">contact_support</span> Mesa Central y Requerimientos</div>
+                    <h1>Canales Oficiales de <span>Atención y Presupuestos</span></h1>
+                    <p>Canaliza tus solicitudes de cotización, proyectos de ingeniería eléctrica o declaraciones SEC a través de nuestros canales corporativos autorizados.</p>
+                </header>
+
+                <div class="contact-grid">
+                    <div class="contact-card featured">
+                        <div class="card-top">
+                            <div class="card-icon-bubble"><span class="material-icons">assignment</span></div>
+                            <div>
+                                <div class="card-title">Formulario de Requerimientos</div>
+                                <div class="card-desc" style="text-align: left; margin-top: 6px;">Ingresa los antecedentes técnicos de tu proyecto, solicitud de visita técnica en terreno o cubicación para recibir una propuesta formal.</div>
+                            </div>
+                        </div>
+                        <!-- NUEVO LINK DEL FORMULARIO AÑADIDO AQUÍ -->
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfzSi0vsOxxqAm_N8wphnagmt7a6YtPIcfzz2in16XG11uWIA/viewform?usp=header" target="_blank" class="btn-action-primary">
+                            <span>Rellenar Formulario de Presupuesto</span><span class="material-icons">open_in_new</span>
+                        </a>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="card-top">
+                            <div class="card-icon-bubble"><span class="material-icons">mark_email_read</span></div>
+                            <div>
+                                <div class="card-title">Correo Corporativo</div>
+                                <div class="card-desc" style="text-align: left; margin-top: 6px;">Envío de bases de licitación, especificaciones técnicas (EETT), planos o consultas directas a nuestra mesa técnica.</div>
+                            </div>
+                            <div class="email-display-box">
+                                <span class="email-text" id="corpEmail">contacto@voltaik.cl</span>
+                                <button class="btn-copy" onclick="copiarCorreo()"><span class="material-icons">content_copy</span><span id="copyBtnText">Copiar</span></button>
+                            </div>
+                        </div>
+                        <a href="mailto:contacto@voltaik.cl" class="btn-action-secondary">
+                            <span>Escribir Mensaje Directo</span><span class="material-icons">send</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="info-strip">
+                    <div class="info-item">
+                        <span class="material-icons">business</span>
+                        <div><div class="info-content-title">Domicilio Corporativo</div><div class="info-content-desc">Comuna de Providencia, Región Metropolitana (Oficina Administrativa).</div></div>
+                    </div>
+                    <div class="info-item">
+                        <span class="material-icons">precision_manufacturing</span>
+                        <div><div class="info-content-title">Ejecución en Terreno</div><div class="info-content-desc">Cobertura técnica y logística en obras y faenas industriales en todo Chile.</div></div>
+                    </div>
+                    <div class="info-item">
+                        <span class="material-icons">verified_user</span>
+                        <div><div class="info-content-title">Gobernanza & Gestión</div><div class="info-content-desc">Administración estratégica y soporte por Gestiones e Inversiones Argo SpA.</div></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- ================= 6. PIE DE PÁGINA (GLOBAL) ================= -->
+        <footer class="footer-integrated">
+            <div class="footer-grid">
+                <div class="brand-col">
+                    <div class="footer-brand" onclick="cambiarPestana('inicio')">
+                        <svg class="footer-logo-svg" viewBox="0 0 340 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="Footer-Isotipo">
+                                <polygon points="50,45 115,70 75,130 55,100" fill="#2d354d"/>
+                                <polygon points="50,45 110,70 148,195 118,200 75,130" fill="#22c55e"/>
+                                <polygon points="110,70 138,82 152,192" fill="#4ade80"/>
+                                <polygon points="152,235 122,142 158,150 146,65 186,155 158,155 178,235" fill="#38bdf8"/>
+                                <polygon points="185,235 162,152 232,55 258,68 205,208" fill="#38385a"/>
+                                <polygon points="232,55 258,68 274,125 248,118" fill="#4d5575"/>
+                                <polygon points="144,240 182,235 162,268" fill="#1b2034"/>
+                            </g>
+                        </svg>
+                        <div class="footer-brand-text">VOLTAIK <span>GROUP</span></div>
+                    </div>
+                    <p class="brand-description">Soluciones integrales de ingeniería eléctrica, mantenimiento técnico preventivo, regularizaciones SEC, facility management y logística industrial con cobertura en faena a nivel nacional.</p>
+                    <div class="sec-certified-pill"><span class="material-icons">verified</span><span>Instalador Eléctrico Autorizado SEC</span></div>
+                </div>
+
+                <div class="nav-col">
+                    <div class="col-title">Navegación Corporativa</div>
+                    <ul class="footer-nav-list">
+                        <li><a onclick="cambiarPestana('inicio')"><span class="material-icons">chevron_right</span> Portal de Inicio</a></li>
+                        <li><a onclick="cambiarPestana('servicios')"><span class="material-icons">chevron_right</span> Servicios & Especialidades</a></li>
+                        <li><a onclick="cambiarPestana('sec')"><span class="material-icons">chevron_right</span> Certificaciones TE-1 / TE-4 / TE-6</a></li>
+                        <li><a onclick="cambiarPestana('contacto')"><span class="material-icons">chevron_right</span> Mesa Central & Contacto</a></li>
+                    </ul>
+                </div>
+
+                <div class="governance-col">
+                    <div class="col-title">Estructura & Gobernanza</div>
+                    <div class="holding-box">
+                        <div class="holding-header"><span class="material-icons holding-icon">corporate_fare</span><span class="holding-tag">Gestión Estratégica</span></div>
+                        <p class="holding-text">La administración corporativa y control financiero de <strong>Grupo Voltaik SpA</strong> se ejecutan bajo la gobernanza y soporte empresarial de <strong>Gestiones e Inversiones Argo SpA</strong> (Argo Holding).</p>
+                        <div class="holding-footer-note"><span class="material-icons">verified_user</span><span>Ecosistema Empresarial Argo Holding</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="bottom-left">
+                    <span>&copy; 2026 Grupo Voltaik SpA. Todos los derechos reservados.</span>
+                    <span class="domicilio-tag"><span class="material-icons">place</span> Providencia, Santiago | Ejecución Nacional en Faena</span>
+                </div>
+                <div class="bottom-right"><span>Administración & Management:</span> <span class="accent">ARGO HOLDING</span></div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- MODAL INTERACTIVO GLOBAL -->
+    <div class="modal-overlay" id="appModal" onclick="closeModalOnOverlay(event)">
+        <div class="modal-box">
+            <button class="modal-close-btn" onclick="closeAppModal()"><span class="material-icons">close</span></button>
+            <div class="modal-tag" id="modalTag">INFORMACIÓN TÉCNICA</div>
+            <h2 class="modal-title" id="modalTitle">Título</h2>
+            <p class="modal-desc" id="modalDesc">Descripción</p>
+            <div class="modal-highlight-box" id="modalHighlight" style="display: none;"></div>
+            <div class="modal-scope-title"><span class="material-icons">checklist</span> Alcance y Entregables</div>
+            <ul class="modal-scope-list" id="modalList"></ul>
+            <div class="modal-cta-box">
+                <button class="btn-action-primary" onclick="closeAppModal(); cambiarPestana('contacto');">
+                    <span>Solicitar Presupuesto para este Servicio</span><span class="material-icons">arrow_forward</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST DE COPIADO -->
+    <div class="toast-copied" id="copyToast"><span class="material-icons">check_circle</span><span>¡Correo copiado al portapapeles!</span></div>
+
+    <!-- CONTROL JAVASCRIPT NATIVO -->
+    <script>
+        // CAMBIO DE PESTAÑAS INSTANTÁNEO (SPA)
+        function cambiarPestana(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+
+            const targetTab = document.getElementById('tab-' + tabId);
+            const targetNav = document.getElementById('nav-' + tabId);
+
+            if (targetTab) targetTab.classList.add('active');
+            if (targetNav) targetNav.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // DATOS PARA MODALES
+        const modalData = {
+            electrica: {
+                tag: "ÁREA UNO: INGENIERÍA Y SERVICIOS ELÉCTRICOS",
+                title: "Ingeniería Eléctrica y Certificación SEC",
+                desc: "Servicios integrales de ingeniería eléctrica amparados bajo la normativa de la SEC. Cubrimos diseño, cálculo, ejecución y auditoría de instalaciones.",
+                items: [
+                    "Diseño y montaje de tableros eléctricos de distribución y fuerza.",
+                    "Tramitación de declaraciones juradas TE-1 ante la SEC.",
+                    "Redes de corrientes débiles, CCTV y automatización.",
+                    "Medición de mallas de tierra con telurómetro calibrado.",
+                    "Mantenimiento preventivo termográfico en tableros."
+                ]
+            },
+            facility: {
+                tag: "ÁREA UNO: GESTIÓN DE INSTALACIONES (CÓDIGO SII 811000)",
+                title: "Facility Management y Soporte Continuo",
+                desc: "Apoyo técnico y administrativo para condominios, plantas productivas y centros logísticos que demandan continuidad operacional.",
+                items: [
+                    "Gestión integral de infraestructura, bombas de agua y calderas.",
+                    "Planes programados de mantenimiento preventivo y correctivo.",
+                    "Supervisión y control de subcontratos en faena.",
+                    "Auditorías de consumo energético de instalaciones comunes."
+                ]
+            },
+            construccion: {
+                tag: "ÁREA DOS: CONSTRUCCIÓN Y OBRAS CIVILES (CÓDIGO SII 433000)",
+                title: "Construcción y Obras Civiles Menores",
+                desc: "Desarrollo de proyectos de infraestructura y remodelaciones comerciales o corporativas.",
+                items: [
+                    "Terminaciones, tabiquería de yeso-cartón y pisos técnicos.",
+                    "Remodelación estructural interna de oficinas y galpones.",
+                    "Obras viales menores, radieres y nivelaciones de terreno.",
+                    "Demoliciones controladas y retiro certificado de escombros."
+                ]
+            },
+            logistica: {
+                tag: "ÁREA TRES: TRANSPORTE Y MAQUINARIA (CÓDIGOS SII 492300 / 771000)",
+                title: "Logística Terrestre y Arriendo de Maquinaria",
+                desc: "Transporte de carga por carretera y soporte mecanizado para obras en todo Chile.",
+                items: [
+                    "Transporte terrestre de carga pesada y distribución capilar.",
+                    "Emisión integrada de Guías de Despacho Electrónicas SII.",
+                    "Arriendo de camiones tolva, ramplas y vehículos livianos.",
+                    "Alquiler de maquinaria pesada, plataformas y grúas horquilla."
+                ]
+            },
+            suministros: {
+                tag: "ÁREA CUATRO: COMERCIALIZACIÓN Y SUMINISTROS (CÓDIGO SII 466301)",
+                title: "Suministros Industriales, Maderas y Pallets",
+                desc: "Abastecimiento mayorista y minorista de materiales técnicos para construcción e ingeniería.",
+                items: [
+                    "Comercialización de pallets estándar y a medida.",
+                    "Venta de maderas aserradas y embalajes técnicos.",
+                    "Suministro de conductores eléctricos y protecciones.",
+                    "Despacho directo y coordinado a pie de obra."
+                ]
+            },
+            renovables: {
+                tag: "ÁREA CINCO: ENERGÍAS RENOVABLES Y EFICIENCIA ENERGÉTICA",
+                title: "Energía Solar Fotovoltaica y Climatización",
+                desc: "Proyectos de autoconsumo solar y descarbonización bajo la Ley 20.571 (Net Billing).",
+                items: [
+                    "Sistemas On-Grid, Off-Grid e híbridos.",
+                    "Tramitación de certificados de conexión TE-4 ante la SEC.",
+                    "Mantenimiento preventivo y limpieza técnica de paneles.",
+                    "Sistemas de climatización HVAC industrial."
+                ]
+            },
+            te1: {
+                tag: "TRÁMITE OFICIAL SEC: DECLARACIÓN INTERIOR",
+                title: "Declaración TE-1 (Instalaciones Interiores)",
+                desc: "Acredita que la instalación eléctrica cumple con el Reglamento de Consumo (RIC). Es indispensable para la recepción final DOM y nuevo empalme.",
+                highlight: "Válido para casas, edificios habitacionales, locales comerciales e industrias.",
+                items: [
+                    "Levantamiento técnico en terreno y cubicación de cargas.",
+                    "Elaboración de planos eléctricos en formato unilineal normado.",
+                    "Memoria técnica explicativa y cálculos de caídas de tensión.",
+                    "Protocolo de pruebas de aislación y continuidad.",
+                    "Certificado TE-1 oficial con Folio e Inscripción digital."
+                ]
+            },
+            te4: {
+                tag: "GENERACIÓN DISTRIBUIDA: LEY 20.571 / RIC N°09",
+                title: "Declaración TE-4 (Fotovoltaica / Net Billing)",
+                desc: "Certificación para inyectar excedentes de plantas solares a la red de distribución eléctrica (Enel, CGE, etc.).",
+                highlight: "Habilita la activación de medidores bidireccionales.",
+                items: [
+                    "Formularios de solicitud (F1) y notificación de conexión (F3).",
+                    "Validación de inversores y paneles autorizados por la SEC.",
+                    "Planos con detalle de protecciones DC y diferenciales Tipo B.",
+                    "Inscripción final TE-4 formal."
+                ]
+            },
+            te6: {
+                tag: "ELECTROMOVILIDAD: PLIEGO TÉCNICO RIC N°15",
+                title: "Declaración TE-6 (Cargadores Vehículos Eléctricos)",
+                desc: "Inscripción legal de cargadores EV en estacionamientos privados, edificios de copropiedad e industrias.",
+                highlight: "Asegura la red del edificio contra sobrecargas y fugas en corriente continua.",
+                items: [
+                    "Estudio de capacidad disponible del empalme existente.",
+                    "Configuración de protecciones diferenciales RDC-DD o Tipo B.",
+                    "Diseño de trazado eléctrico y pulsadores de emergencia.",
+                    "Certificado TE-6 para el comité o administración municipal."
+                ]
+            },
+            te2: {
+                tag: "ALUMBRADO PÚBLICO: PLIEGO TÉCNICO RIC N°09",
+                title: "Declaración TE-2 (Alumbrado Vial y Loteos)",
+                desc: "Certificación técnica de redes de iluminación en bienes de uso público, loteos cerrados y proyectos SERVIU.",
+                highlight: "Requisito para entrega de obras viales a municipalidades.",
+                items: [
+                    "Estudio luminotécnico para cumplimiento de lux requeridos.",
+                    "Cálculo de canalizaciones subterráneas y cámaras de paso.",
+                    "Puestas a tierra para luminarias y postes.",
+                    "Obtención del Folio TE-2 oficial."
+                ]
+            },
+            malla: {
+                tag: "SEGURIDAD DE LAS PERSONAS: PLIEGO RIC N°06",
+                title: "Medición y Protocolo de Malla a Tierra",
+                desc: "Verificación instrumental del sistema de puesta a tierra (SPT) con telurómetro calibrado.",
+                highlight: "Exigido para trámites TE-1 e inspecciones de seguridad laboral (SEREMI / DT).",
+                items: [
+                    "Medición instrumental mediante método Wenner / Caída de potencial.",
+                    "Comprobación de tensiones de paso y de contacto.",
+                    "Informe timbrado por Instalador Autorizado SEC.",
+                    "Propuesta técnica de mejoramiento con electrodos si supera los 20 Ω."
+                ]
+            },
+            auditoria: {
+                tag: "REGULARIZACIÓN Y PLANOS AS-BUILT",
+                title: "Auditoría Normativa y Planos As-Built",
+                desc: "Levantamiento integral de instalaciones modificadas, ampliadas o sin antecedentes originales.",
+                highlight: "Previene multas de la SEC y valida la vigencia de pólizas de seguro.",
+                items: [
+                    "Inspección de tableros, rotulación y balance de fases.",
+                    "Inspección termográfica preventiva de sobrecalentamientos.",
+                    "Dibujo digital de planos As-Built en formato AutoCAD normado.",
+                    "Ingreso de regularización técnica ante la plataforma SEC."
+                ]
+            }
+        };
+
+        function openServiceModal(key) { openModalByKey(key); }
+        function openSecModal(key) { openModalByKey(key); }
+
+        function openModalByKey(key) {
+            const data = modalData[key];
+            if (!data) return;
+
+            document.getElementById('modalTag').innerText = data.tag;
+            document.getElementById('modalTitle').innerText = data.title;
+            document.getElementById('modalDesc').innerText = data.desc;
+
+            const highlightBox = document.getElementById('modalHighlight');
+            if (data.highlight) {
+                highlightBox.innerText = data.highlight;
+                highlightBox.style.display = 'block';
+            } else {
+                highlightBox.style.display = 'none';
+            }
+
+            const listContainer = document.getElementById('modalList');
+            listContainer.innerHTML = '';
+            data.items.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span class="material-icons">check_circle</span><span>${item}</span>`;
+                listContainer.appendChild(li);
+            });
+
+            document.getElementById('appModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAppModal() {
+            document.getElementById('appModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function closeModalOnOverlay(e) {
+            if (e.target.id === 'appModal') closeAppModal();
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeAppModal();
+        });
+
+        // COPIAR CORREO
+        function copiarCorreo() {
+            const email = document.getElementById('corpEmail').innerText;
+            navigator.clipboard.writeText(email).then(() => {
+                const toast = document.getElementById('copyToast');
+                const btnText = document.getElementById('copyBtnText');
+                btnText.innerText = 'Copiado';
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    btnText.innerText = 'Copiar';
+                }, 2500);
+            });
+        }
+    </script>
+</body>
+</html>
